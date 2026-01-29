@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сфера IT. Возможности и вызовы</title>
+    <style>
+        :root {
+            --bg-dark: #0A0F1E;       
+            --bg-card: #161E2E;       
+            --accent-blue: #38BDF8;   
+            --text-white: #FFFFFF;
+            --text-gray: #94A3B8;
+            --border: #2D3748;
+            --transition: all 0.3s ease;
+        }
+
+        /* АНИМАЦИИ ПОЯВЛЕНИЯ */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
+        }
+
+        * {
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-white);
+            margin: 0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: rgba(10, 15, 30, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            animation: slideDown 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .avatar {
+            width: 48px;
+            height: 48px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid var(--accent-blue);
+            filter: drop-shadow(0 0 5px var(--accent-blue));
+            transition: var(--transition);
+        }
+
+        .avatar:hover {
+            transform: rotate(360deg);
+        }
+
+        .logo-text {
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: var(--text-white);
+        }
+
+        .nav-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+            margin-left: 25px;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--accent-blue);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-blue);
+        }
+
+        /* Эффекты для главного блока */
+        .hero {
+            padding: 120px 8%;
+            text-align: center;
+            background: radial-gradient(circle at top, #1E293B 0%, var(--bg-dark) 70%);
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            margin-bottom: 20px;
+            line-height: 1.1;
+            animation: fadeInUp 0.8s ease-out both;
+            animation-delay: 0.2s;
+        }
+
+        .hero p {
+            animation: fadeInUp 0.8s ease-out both;
+            animation-delay: 0.4s;
+        }
+
+        .hero span {
+            color: var(--accent-blue);
+            text-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+
+        /* Класс для анимации при скролле */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .grid-main {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        .card {
+            background: var(--bg-card);
+            padding: 35px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            border-color: var(--accent-blue);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(56, 189, 248, 0.15);
+        }
+
+        .card h3 {
+            color: var(--accent-blue);
+            margin-top: 0;
+            font-size: 1.5rem;
+            line-height: 1.3;
+        }
+
+        .btn-card {
+            background: var(--bg-card);
+            border: 1px solid var(--accent-blue);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            text-decoration: none;
+            color: var(--text-white);
+            transition: var(--transition);
+            flex: 1;
+            min-width: 280px;
+            max-width: 350px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .btn-card:hover {
+            background: var(--accent-blue);
+            color: var(--bg-dark);
+            transform: scale(1.03);
+        }
+
+        .grid-footer {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 25px;
+        }
+
+        footer {
+            padding: 60px 8%;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-gray);
+            animation: fadeIn 2s ease;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="brand">
+        <img src="https://i.postimg.cc/ZWTtS1NN/Gemini-Generated-Image-xw9427xw9427xw94.png" alt="Profile Avatar" class="avatar">
+        <div class="logo-text">Сайт для проекта</div>
+    </div>
+    <nav class="nav-links">
+        <a href="#specialties">Специальности</a>
+        <a href="#learning">Обучение</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <h1>Сфера IT.<br><span>Возможности и вызовы</span></h1>
+    <p style="max-width: 700px; margin: 0 auto; color: var(--text-gray); font-size: 1.2rem;">
+        Сайт, созданный учеником 7-10 класса с использованием искусственного интеллекта для школьного проекта.
+    </p>
+</section>
+
+<div class="container reveal" id="specialties">
+    <div class="section-header">
+        <h2>Специальности в IT</h2>
+        <p>Широкий выбор специальностей будущего!</p>
+    </div>
+
+    <div class="grid-main">
+        <div class="card">
+            <h3>Разработчик Интерфейса<br>━━━━━━━━━━━━<br>Frontend Developer</h3>
+            <p>Человек данной специальности придает базовый вид сайту. Создает то, что видит пользователь зашедший на сайт.</p>
+        </div>
+        <div class="card">
+            <h3>Серверный Разработчик<br> <br>━━━━━━━━━━━━<br>Backend Developer</h3>
+            <p>Управление базами данных, создание серверной логики и интеграций с разными сервисами.</p>
+        </div>
+        <div class="card">
+            <h3>Инженер DevOps<br> <br>━━━━━━━━━━━━<br>DevOps Engineer</h3>
+            <p>Мастера автоматизации. Они связывают разработку и эксплуатацию, настраивая работу серверов.</p>
+        </div>
+        <div class="card">
+            <h3>Специалист по данным<br>━━━━━━━━━━━━<br>Data Scientist</h3>
+            <p>Аналитики данных. Используют математику и код, чтобы находить скрытые закономерности.</p>
+        </div>
+        <div class="card">
+            <h3>Дизайнер интерфейса<br>━━━━━━━━━━━━<br>UX/UI Designer</h3>
+            <p>Волшебники визуала. Они создают красивый и удобный интерфейс для любого продукта.</p>
+        </div>
+        <div class="card">
+            <h3>Инженер по качеству<br>━━━━━━━━━━━━<br>QA Engineer</h3>
+            <p>Специалист, который гарантирует качество продукта, проверяя недоработки и баги.</p>
+        </div>
+    </div>
+
+    <div class="grid-footer">
+        <div class="card card-center reveal" style="max-width: 380px;">
+            <h3>Инженер-робототехник<br>━━━━━━━━━━━━<br>Robotics Engineer</h3>
+            <p>Занимаются созданием роботов, их обслуживанием и программным улучшением.</p>
+        </div>
+        <div class="card card-center reveal" style="max-width: 380px;">
+            <h3>Инженер по ИИ<br>━━━━━━━━━━━━<br>AI Engineer</h3>
+            <p>Специалист, который работает с искусственным интеллектом и обучает нейросети.</p>
+        </div>
+    </div>
+</div>
+
+<div class="container reveal" id="learning">
+    <div class="section-header">
+        <h2>Как научиться программировать?</h2>
+        <p>Здесь есть ответ на твой вопрос!</p>
+    </div>
+    
+    <div class="grid-footer" style="gap: 20px;">
+        <a href="https://vkvideo.ru/?q=обучение%20программированию" target="_blank" class="btn-card">
+            <h4>Обучение самому</h4>
+            <p>━━━━━━━━━━━━━━━━━━━<br>Самостоятельное изучение по видео-роликам на VK Видео.</p>
+        </a>
+        <a href="https://practicum.yandex.ru" target="_blank" class="btn-card">
+            <h4>Онлайн-курсы</h4>
+            <p>━━━━━━━━━━━━━━━━━━━<br>Структурированная программа с наставником и дипломом.</p>
+        </a>
+        <a href="https://it-cube.ficto.ru/" target="_blank" class="btn-card">
+            <h4>IT-Куб</h4>
+            <p>━━━━━━━━━━━━━━━━━━━<br>Очное обучение в центрах и работа в реальных командах.</p>
+        </a>
+    </div>
+</div>
+
+<footer>
+    <p>Сфера IT: Возможности и вызовы © 2026</p>
+    <p style="font-size: 0.8rem; opacity: 0.5;">Сайт был написан учеником Галиулиным Каримом из 7-10 класса школы МБОУ СОШ №116<br>Сайт написан частично с использованием искусственного интелекта.<br></p>
+</footer>
+
+<script>
+    // Скролл вверх при обновлении страницы
+    window.onbeforeunload = function () {
+        window.scrollTo(0, 0);
+    }
+
+    // Дополнительный метод для браузеров, которые сохраняют позицию
+    if (history.scrollRestoration) {
+        history.scrollRestoration = 'manual';
+    }
+
+    // Функция для плавного появления элементов при прокрутке
+    function reveal() {
+        var reveals = document.querySelectorAll(".reveal");
+        for (var i = 0; i < reveals.length; i++) {
+            var windowHeight = window.innerHeight;
+            var elementTop = reveals[i].getBoundingClientRect().top;
+            var elementVisible = 150;
+            if (elementTop < windowHeight - elementVisible) {
+                reveals[i].classList.add("active");
+            }
+        }
+    }
+
+    window.addEventListener("scroll", reveal);
+
+    // Запуск проверки при загрузке страницы
+    window.onload = function() {
+        window.scrollTo(0, 0); // Еще один принудительный скролл вверх при загрузке
+        reveal();
+    };
+</script>
+
+</body>
+</html>
